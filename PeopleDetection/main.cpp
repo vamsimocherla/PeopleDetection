@@ -61,10 +61,6 @@ bool detectLogo(Mat person, Mat desObject, Mat object, vector<KeyPoint> kpObject
         }
     }
     
-    // draw the good matches
-//    Mat imageMatches;
-//    drawMatches(object, kpObject, person, kpFrame, goodMatches, imageMatches, Scalar::all(-1), Scalar::all(-1), vector<char>(),  DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-
     if(goodMatches.size() >= 8)
     {
         vector<Point2f> obj;
@@ -84,11 +80,6 @@ bool detectLogo(Mat person, Mat desObject, Mat object, vector<KeyPoint> kpObject
         perspectiveTransform( objCorners, sceneCorners, H);
         
         // draw lines between the corners (the mapped object in the scene image )
-/*        line(imageMatches, sceneCorners[0]+Point2f(object.cols, 0), sceneCorners[1]+Point2f(object.cols, 0), Scalar(255, 255, 255), 4);
-        line(imageMatches, sceneCorners[1]+Point2f(object.cols, 0), sceneCorners[2]+Point2f(object.cols, 0), Scalar(255, 255, 255), 4);
-        line(imageMatches, sceneCorners[2]+Point2f(object.cols, 0), sceneCorners[3]+Point2f(object.cols, 0), Scalar(255, 255, 255), 4);
-        line(imageMatches, sceneCorners[3]+Point2f(object.cols, 0), sceneCorners[0]+Point2f(object.cols, 0), Scalar(255, 255, 255), 4);*/
-        
         line(person, sceneCorners[0], sceneCorners[1], Scalar(255, 255, 255), 4);
         line(person, sceneCorners[1], sceneCorners[2], Scalar(255, 255, 255), 4);
         line(person, sceneCorners[2], sceneCorners[3], Scalar(255, 255, 255), 4);
@@ -197,13 +188,11 @@ int main()
                         // draw a bounding box for the detected people
                         rectangle(inputFrame, r.tl(), r.br(), Scalar(0, 255, 0), 2);
                         
-                        // draw the path of the movement of the person
-//                        rectangle(pathImage, r.tl(), r.br(), Scalar(0, 255, 0), 2);
-//                        circle(pathImage, Point(r.x+r.width/2, r.y+r.height/2), 1, Scalar(0,255,0));
-                        
                         // get the new position
                         newPoint.x = r.x+r.width/2;
                         newPoint.y = r.y+r.width/2;
+                        
+                        // draw the path of the movement of the person
                         line(pathImage, newPoint, oldPoint, Scalar(0,255,0), 2);
                         
                         // save the old position
@@ -221,10 +210,5 @@ int main()
         imshow("Path Traced", pathImage);
         key = waitKey(1);
     }
-    
-    // display the path of the person detected
-//    imshow("Path Traced", pathImage);
-//    waitKey(0);
-
     return 0;
 }
