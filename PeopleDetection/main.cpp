@@ -94,7 +94,7 @@ bool detectLogo(Mat person, Mat desObject, Mat object, vector<KeyPoint> kpObject
 int main()
 {
     // read the logo image
-    Mat object = imread("radio2.png");
+    Mat object = imread("logo.png");
     if(!object.data)
     {
         cout << "[ERROR] CANNOT READ IMAGE" << endl;
